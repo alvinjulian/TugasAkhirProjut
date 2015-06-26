@@ -62,6 +62,7 @@ namespace TugasAkhirProjut
                     break;
                 case 3:
                     //delete shape
+                    Shape.hapusshape();
                     break;
                 case 4:
                     //exit

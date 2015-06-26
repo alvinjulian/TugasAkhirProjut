@@ -12,8 +12,8 @@ namespace TugasAkhirProjut
         {
             int jari;
             string jaris;
-            bool batas = false;
             bool cekint;
+            bool batas = false;
             do
             {
                 Console.Clear();
@@ -43,6 +43,47 @@ namespace TugasAkhirProjut
             Console.WriteLine("\n\nData berhasil disimpan! Tekan sembarang tombol untuk kembali....");
             Console.ReadKey();
             tambahshape();
+
+        }
+
+        public static void hapus()
+        {
+            int jari;
+            string jaris;
+            bool cekint;
+            bool batas = false;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("\t\t\t\t\t\t\tHapus Circle");
+                Console.WriteLine("\t\t\t\t\t\t\t==================\n");
+                Console.Write("Masukan Jari-Jari yang akan di hapus :  ");
+                jaris = Console.ReadLine();
+                cekint = int.TryParse(jaris, out jari);
+                if (jari >= 0 && cekint == true)
+                {
+                    batas = true;
+                    continue;
+
+                }
+                else
+                {
+                    Console.WriteLine("Jari-jari yang dimasukan tidak valid!\nTekan sembarang tombol untuk kembali memasukan umur");
+                    Console.ReadKey();
+                }
+
+            } while (batas == false);
+            ///hapus filenya
+            /// lwad shape class
+            /// 
+            hapuskefile(jari, "circle");
+            //copy dri cp ke asli
+            copyfile("circle");
+
+            Console.WriteLine("\nTekan sembarang tombol untuk kembali....");
+            Console.ReadKey();
+            hapusshape();
+
 
         }
         /////

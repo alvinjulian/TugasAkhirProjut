@@ -45,6 +45,47 @@ namespace TugasAkhirProjut
             tambahshape();
 
         }
+
+        public static void hapus()
+        {
+            int sisi;
+            string sisis;
+            bool cekint;
+            bool batas = false;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("\t\t\t\t\t\t\tHapus Circle");
+                Console.WriteLine("\t\t\t\t\t\t\t==================\n");
+                Console.Write("Masukan Sisi yang akan di hapus :  ");
+                sisis = Console.ReadLine();
+                cekint = int.TryParse(sisis, out sisi);
+                if (sisi >= 0 && cekint == true)
+                {
+                    batas = true;
+                    continue;
+
+                }
+                else
+                {
+                    Console.WriteLine("Sisi yang dimasukan tidak valid!\nTekan sembarang tombol untuk kembali memasukan umur");
+                    Console.ReadKey();
+                }
+
+            } while (batas == false);
+            ///hapus filenya
+            /// lwad shape class
+            /// 
+            hapuskefile(sisi, "square");
+            //copy dri cp ke asli
+            copyfile("square");
+
+            Console.WriteLine("\nTekan sembarang tombol untuk kembali....");
+            Console.ReadKey();
+            hapusshape();
+
+
+        }
         /////
 
     }

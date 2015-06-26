@@ -69,6 +69,71 @@ namespace TugasAkhirProjut
             tambahshape();
 
         }
+
+        public static void hapus()
+        {
+            int panjang;
+            int lebar;
+            string ukurans;
+            bool batas = false;
+            bool cekint;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("\t\t\t\t\t\t\tHapus Rectangle");
+                Console.WriteLine("\t\t\t\t\t\t\t==================\n");
+                Console.Write("Masukan Panjang yang ingin dihapus: ");
+                ukurans = Console.ReadLine();
+                cekint = int.TryParse(ukurans, out panjang);
+                if (panjang >= 0 && cekint == true)
+                {
+                    batas = true;
+                    continue;
+
+                }
+                else
+                {
+                    Console.WriteLine("Panjang yang dimasukan tidak valid!\nTekan sembarang tombol untuk kembali memasukan umur");
+                    Console.ReadKey();
+                }
+
+            } while (batas == false);
+            batas = false;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("\t\t\t\t\t\t\tHapus Rectangle");
+                Console.WriteLine("\t\t\t\t\t\t\t==================\n");
+                Console.Write("Masukan Panjang yang ingin dihapus: {0} ", panjang);
+                Console.Write("\nMasukan Lebaryang ingin dihapus : ");
+                ukurans = Console.ReadLine();
+                cekint = int.TryParse(ukurans, out lebar);
+                if (lebar <= panjang && cekint == true)
+                {
+                    batas = true;
+                    continue;
+
+                }
+                else
+                {
+                    Console.WriteLine("Lebar yang dimasukan tidak valid! ( Harus lebih kecil dari Panjang )\nTekan sembarang tombol untuk kembali memasukan umur");
+                    Console.ReadKey();
+                }
+
+            } while (batas == false);
+            ///hapus filenya
+            /// lwad shape class
+            /// 
+            hapuskefile(panjang,lebar);
+            ////copy dri cp ke asli
+            copyfile("rectangle");
+
+            Console.WriteLine("\nTekan sembarang tombol untuk kembali....");
+            Console.ReadKey();
+            hapusshape();
+
+
+        }
         /////
 
     }
