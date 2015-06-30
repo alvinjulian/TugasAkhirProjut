@@ -347,6 +347,7 @@ namespace TugasAkhirProjut
             {
                 case 1:
                    /// smua data
+                    lihat();
                     break;
                 case 2:
                     // circle
@@ -368,7 +369,46 @@ namespace TugasAkhirProjut
                     break;
             }
         }
+        public static void lihat()
+        {
 
+            bool kondisi;
+            int pilih = 0;
+            string pilihan;
+            do
+            {
+                menulihat("Semua Shape");
+                Console.Write("Masukan pilihan anda : ");
+                pilihan = Console.ReadLine();
+                kondisi = int.TryParse(pilihan, out pilih);
+                if (kondisi == true && pilih > 0 && pilih < 4)
+                {
+                    continue;
+                }
+                Console.WriteLine("\nPilihan yang anda masukan salah!");
+                Console.WriteLine("Tekan sembarang untuk memilih kembali...");
+                Console.ReadLine();
+            } while (pilih < 1 || pilih > 3);
+
+            switch (pilih)
+            {
+                case 1:
+                    /// LUAS
+                    ///
+                    sorting("Luas");
+                    break;
+                case 2:
+                    // circle keliling
+                    sorting("Keliling");
+                    break;
+                case 3:
+                    //main menu tampil shape
+                    tampilshape();
+                    break;
+                default:
+                    break;
+            }
+        }
         static void printMenutampil()
         {
 
@@ -413,6 +453,111 @@ namespace TugasAkhirProjut
                 return ((2*panjang)+(2*lebar));
         }
 
+        public static void sorting(string hit)
+        {
+
+            string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string file = dir + @"\rectangle.txt";
+            string filecp = dir + @"\lihat.txt";
+            bacafile(file, filecp, hit);
+            file = dir + @"\circle.txt";
+
+            bacafile1(file, filecp, hit,"cir");
+            file = dir + @"\square.txt";
+
+            bacafile1(file, filecp, hit,"squa");
+            Console.Clear();
+            Console.WriteLine("\t\t\t\t\t\t\t\tLihat Semua Shape");
+            Console.WriteLine("\t\t\t\t\t\t\t\t===================");
+            file = dir + @"\lihat.txt";
+            string[] scores = File.ReadAllLines(file);
+            var orderedScores = scores.OrderBy(x => int.Parse(x.Split('\t')[0]));
+            int counter = 0;
+           // if (hit == "Luas")
+                //Console.WriteLine("No.\t" + hit + "\t\tPanjang\tLebar");
+            //else
+               // Console.WriteLine("No.\t" + hit + "\tPanjang\tLebar");
+
+            foreach (var score in orderedScores)
+            {
+                counter++;
+                Console.WriteLine(score);
+            }
+            File.Delete(file);
+            Console.WriteLine("\nTekan sembarang untuk kembali ke menu lihat semua shape");
+            Console.ReadKey();
+            lihat();
+        }
+        public static void bacafile1(string file, string filecp, string hit,string shape)
+        {
+
+            string line;
+            string pattern = @"\t+";
+            Regex rgx = new Regex(pattern);
+            StreamReader sr = new StreamReader(file);
+            while ((line = sr.ReadLine()) != null)
+            {
+                double hasil = 0;
+                string[] result = rgx.Split(line);
+                if (shape == "squa")
+                    hasil = rumus(Convert.ToInt16(result[0]), hit);
+                else
+                    hasil = rumus(Convert.ToDouble(result[0]), hit);
+                //untuk rect 
+                if (!File.Exists(filecp))
+                {
+
+                    // Create a file to write to. kalau belom ada filenya 
+                    using (StreamWriter swnew = File.CreateText(filecp))
+                    {
+                        swnew.WriteLine(hasil + "\t" + result[0]);
+                    }
+                }
+                //kalau ud ada file yang mau ditulis
+                else
+                {
+                    using (FileStream fs = new FileStream(filecp, FileMode.Append, FileAccess.Write))
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {
+                        sw.WriteLine(hasil + "\t" + result[0] );
+                    }
+                }
+            }
+            sr.Close();
+        }
+        public static void bacafile(string file, string filecp,string hit)
+        {
+            string line;
+            string pattern = @"\t+";
+            Regex rgx = new Regex(pattern);
+            StreamReader sr = new StreamReader(file);
+            while ((line = sr.ReadLine()) != null)
+            {
+                
+                string[] result = rgx.Split(line);
+                int hasil = rumus(Convert.ToInt16(result[0]), Convert.ToInt16(result[1]), hit);
+                //untuk rect 
+                if (!File.Exists(filecp))
+                {
+
+                    // Create a file to write to. kalau belom ada filenya 
+                    using (StreamWriter swnew = File.CreateText(filecp))
+                    {
+                        swnew.WriteLine(hasil + "\t" + result[0] + "\t" + result[1] );
+                    }
+                }
+                //kalau ud ada file yang mau ditulis
+                else 
+                {
+                    using (FileStream fs = new FileStream(filecp, FileMode.Append, FileAccess.Write))
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {
+                        sw.WriteLine(hasil + "\t" + result[0] + "\t" + result[1] );
+                    }
+                }
+            }
+            sr.Close();
+        }
         /////
 
     }

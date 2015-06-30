@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using System.IO;
+using System.Reflection;
 
 namespace TugasAkhirProjut
 {
@@ -182,27 +180,60 @@ namespace TugasAkhirProjut
         }
         public static void sorting(string hit)
         {
+            string line;
+            string pattern = @"\t+";
+            Regex rgx = new Regex(pattern);
+            string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string file = dir + @"\rectangle.txt";
+            string filecp = dir + @"\lihat.txt";
+            StreamReader sr = new StreamReader(file);
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] result = rgx.Split(line);
+                int hasil=rumus(Convert.ToInt16(result[0]),Convert.ToInt16(result[1]),hit);
+                    if (!File.Exists(filecp))
+                    {
+                       
+                        // Create a file to write to. kalau belom ada filenya 
+                        using (StreamWriter swnew = File.CreateText(filecp))
+                        {
+                            swnew.WriteLine(hasil+"\t\t"+result[0] + "\t" + result[1]);
+                        }
+                    }
+                    //kalau ud ada file yang mau ditulis
+                    else
+                    {
+                        using (FileStream fs = new FileStream(filecp, FileMode.Append, FileAccess.Write))
+                        using (StreamWriter sw = new StreamWriter(fs))
+                        {
+                            sw.WriteLine(hasil + "\t\t" + result[0] + "\t" + result[1]);
+                        }
+                    }
+            }
+            sr.Close();
             Console.Clear();
             Console.WriteLine("\t\t\t\t\t\t\t\tLihat Rectangle");
             Console.WriteLine("\t\t\t\t\t\t\t\t===================");
-            string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string file = dir + @"\rectangle.txt";
+            file = dir + @"\lihat.txt";
             string[] scores = File.ReadAllLines(file);
             var orderedScores = scores.OrderBy(x => int.Parse(x.Split('\t')[0]));
             int counter = 0;
-            //Console.WriteLine("No.\t" + hit + "\t\tPanjang\tLebar");
+            if(hit=="Luas")
+                Console.WriteLine("No.\t" + hit + "\t\tPanjang\tLebar");
+            else 
+                Console.WriteLine("No.\t" + hit + "\tPanjang\tLebar");
+            
             foreach (var score in orderedScores)
             {
                 counter++;
-                int panjang = Convert.ToInt16(score[0]);
-                Console.WriteLine(score[0]);
-                Console.WriteLine(panjang);
+                Console.WriteLine(counter+".\t" + score);
                 ///// kode buat nampilin file dan jumlah gitu...
                 //int panjang = Convert.ToInt16(score[0]);
                 //int lebar = Convert.ToInt16(score[1]);
                 //int hasil = rumus(panjang,lebar, hit);
                 //Console.WriteLine(counter + ".\t" + hasil + "\t\t\t" + panjang+"\t\t"+lebar);
             }
+            File.Delete(file);
             Console.WriteLine("\nTekan sembarang untuk kembali ke menu lihat rectangle");
             Console.ReadKey();
             lihat();
