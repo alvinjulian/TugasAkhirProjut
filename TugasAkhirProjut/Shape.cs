@@ -13,7 +13,7 @@ namespace TugasAkhirProjut
 {
     public class Shape
     {
-
+        //public abstract void hitung(int sisi);
         public static void tambahshape()
         {
             bool kondisi;
@@ -322,6 +322,97 @@ namespace TugasAkhirProjut
             //Console.WriteLine("Press any key to exit.");
             //Console.ReadKey();
         }
+
+        public static void tampilshape()
+        {
+            bool kondisi;
+            int pilih = 0;
+            string pilihan;
+            do
+            {
+                printMenutampil();
+                Console.Write("Masukan pilihan anda : ");
+                pilihan = Console.ReadLine();
+                kondisi = int.TryParse(pilihan, out pilih);
+                if (kondisi == true && pilih > 0 && pilih < 6)
+                {
+                    continue;
+                }
+                Console.WriteLine("\nPilihan yang anda masukan salah!");
+                Console.WriteLine("Tekan sembarang untuk memilih kembali...");
+                Console.ReadLine();
+            } while (pilih < 1 || pilih > 5);
+
+            switch (pilih)
+            {
+                case 1:
+                   /// smua data
+                    break;
+                case 2:
+                    // circle
+                    Circle.lihat();
+                    break;
+                case 3:
+                    // square
+                    Square.lihat();
+                    break;
+                case 4:
+                    //rect
+                    Rectangle.lihat();
+                    break;
+                case 5:
+                    //main menu
+                    Program.Main();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        static void printMenutampil()
+        {
+
+            Console.Clear();
+            Console.WriteLine("\t\t\t\t\t\t\t\tTampil Shape");
+            Console.WriteLine("\t\t\t\t\t\t\t\t===================");
+            Console.WriteLine("1. Tampil Semua Shape\n");
+            Console.WriteLine("2. Tampil Circle\n");
+            Console.WriteLine("3. Tampil Square\n");
+            Console.WriteLine("4. Tampil Rectangle\n");
+            Console.WriteLine("5. Main Menu\n");
+        }
+        public static void menulihat(string shapes)
+        {
+            Console.Clear();
+            Console.WriteLine("\t\t\t\t\t\t\t\tLihat " + shapes);
+            Console.WriteLine("\t\t\t\t\t\t\t\t===================");
+            Console.WriteLine("1. Urutkan Bedasarkan Luas\n");
+            Console.WriteLine("2. Urutkan Bedasarkan Keliling\n");
+            Console.WriteLine("3. Menu Tampil Shape\n");
+        }
+        public static double rumus(double ja,string hit)
+        {
+            if (hit == "Luas")
+                return ja * ja * 3.14;
+            else
+                return 2*ja * 3.14;
+        }
+        public static int rumus(int ja, string hit)
+        {
+            if (hit == "Luas")
+                return ja * ja;
+            else
+                return 4 * ja;
+        }
+
+        public static int rumus(int panjang,int lebar, string hit)
+        {
+            if (hit == "Luas")
+                return panjang *lebar;
+            else
+                return ((2*panjang)+(2*lebar));
+        }
+
         /////
 
     }

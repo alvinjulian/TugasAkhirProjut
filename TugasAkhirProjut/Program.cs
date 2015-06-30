@@ -55,6 +55,7 @@ namespace TugasAkhirProjut
             {
                 case 1:
                     // tampilin shape
+                    Shape.tampilshape();
                     break;
                 case 2:
                     // tambah shape
@@ -85,7 +86,9 @@ namespace TugasAkhirProjut
             Console.WriteLine("3. Delete Shape\n");
             Console.WriteLine("4. Exit Program\n");
         }
-        
+
+
+
     
     }
     
