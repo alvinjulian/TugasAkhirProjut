@@ -13,7 +13,7 @@ namespace TugasAkhirProjut
 {
     public class Shape
     {
-        //public abstract void hitung(int sisi);
+        
         public static void tambahshape()
         {
             bool kondisi;
@@ -462,26 +462,26 @@ namespace TugasAkhirProjut
             bacafile(file, filecp, hit);
             file = dir + @"\circle.txt";
 
-            bacafile1(file, filecp, hit,"cir");
+            bacafile1(file, filecp, hit,"Circle");
             file = dir + @"\square.txt";
 
-            bacafile1(file, filecp, hit,"squa");
+            bacafile1(file, filecp, hit,"Square");
             Console.Clear();
             Console.WriteLine("\t\t\t\t\t\t\t\tLihat Semua Shape");
             Console.WriteLine("\t\t\t\t\t\t\t\t===================");
             file = dir + @"\lihat.txt";
             string[] scores = File.ReadAllLines(file);
-            var orderedScores = scores.OrderBy(x => int.Parse(x.Split('\t')[0]));
+            var orderedScores = scores.OrderBy(x => int.Parse(x.Split('\t')[2]));
             int counter = 0;
-           // if (hit == "Luas")
-                //Console.WriteLine("No.\t" + hit + "\t\tPanjang\tLebar");
-            //else
-               // Console.WriteLine("No.\t" + hit + "\tPanjang\tLebar");
+            if (hit == "Luas")
+                Console.WriteLine("No.\t" + hit + "\t\tPanjang/Sisi/Jari-Jari\t\tLebar\tShape");
+            else
+                Console.WriteLine("No.\t" + hit + "\tPanjang/Sisi/Jari-Jari\t\tLebar\tShape");
 
             foreach (var score in orderedScores)
             {
                 counter++;
-                Console.WriteLine(score);
+                Console.WriteLine(counter+".\t" + score);
             }
             File.Delete(file);
             Console.WriteLine("\nTekan sembarang untuk kembali ke menu lihat semua shape");
@@ -499,7 +499,7 @@ namespace TugasAkhirProjut
             {
                 double hasil = 0;
                 string[] result = rgx.Split(line);
-                if (shape == "squa")
+                if (shape == "Square")
                     hasil = rumus(Convert.ToInt16(result[0]), hit);
                 else
                     hasil = rumus(Convert.ToDouble(result[0]), hit);
@@ -510,7 +510,7 @@ namespace TugasAkhirProjut
                     // Create a file to write to. kalau belom ada filenya 
                     using (StreamWriter swnew = File.CreateText(filecp))
                     {
-                        swnew.WriteLine(hasil + "\t" + result[0]);
+                        swnew.WriteLine(hasil + "\t\t" + result[0]+"\t\t\t\t-\t"+shape);
                     }
                 }
                 //kalau ud ada file yang mau ditulis
@@ -519,7 +519,7 @@ namespace TugasAkhirProjut
                     using (FileStream fs = new FileStream(filecp, FileMode.Append, FileAccess.Write))
                     using (StreamWriter sw = new StreamWriter(fs))
                     {
-                        sw.WriteLine(hasil + "\t" + result[0] );
+                        sw.WriteLine(hasil + "\t\t" + result[0] + "\t\t\t\t-\t" + shape);
                     }
                 }
             }
@@ -543,7 +543,7 @@ namespace TugasAkhirProjut
                     // Create a file to write to. kalau belom ada filenya 
                     using (StreamWriter swnew = File.CreateText(filecp))
                     {
-                        swnew.WriteLine(hasil + "\t" + result[0] + "\t" + result[1] );
+                        swnew.WriteLine(hasil + "\t\t" + result[0] + "\t\t\t\t" + result[1] + "\t" + "Rectangle");
                     }
                 }
                 //kalau ud ada file yang mau ditulis
@@ -552,7 +552,7 @@ namespace TugasAkhirProjut
                     using (FileStream fs = new FileStream(filecp, FileMode.Append, FileAccess.Write))
                     using (StreamWriter sw = new StreamWriter(fs))
                     {
-                        sw.WriteLine(hasil + "\t" + result[0] + "\t" + result[1] );
+                        sw.WriteLine(hasil + "\t\t" + result[0] + "\t\t\t\t" + result[1] + "\t" + "Rectangle");
                     }
                 }
             }
