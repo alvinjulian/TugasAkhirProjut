@@ -471,7 +471,7 @@ namespace TugasAkhirProjut
             Console.WriteLine("\t\t\t\t\t\t\t\t===================");
             file = dir + @"\lihat.txt";
             string[] scores = File.ReadAllLines(file);
-            var orderedScores = scores.OrderBy(x => int.Parse(x.Split('\t')[0]));
+            var orderedScores = scores.OrderBy(x => int.Parse(x.Split('\t')[1]));
             int counter = 0;
            // if (hit == "Luas")
                 //Console.WriteLine("No.\t" + hit + "\t\tPanjang\tLebar");
@@ -530,6 +530,7 @@ namespace TugasAkhirProjut
             string line;
             string pattern = @"\t+";
             Regex rgx = new Regex(pattern);
+            //ini pake try catch
             StreamReader sr = new StreamReader(file);
             while ((line = sr.ReadLine()) != null)
             {
