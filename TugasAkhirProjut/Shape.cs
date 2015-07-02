@@ -471,7 +471,7 @@ namespace TugasAkhirProjut
             Console.WriteLine("\t\t\t\t\t\t\t\t===================");
             file = dir + @"\lihat.txt";
             string[] scores = File.ReadAllLines(file);
-            var orderedScores = scores.OrderBy(x => int.Parse(x.Split('\t')[2]));
+            var orderedScores = scores.OrderBy(x => double.Parse(x.Split('\t')[0]));
 
             int counter = 0;
             if (hit == "Luas")
