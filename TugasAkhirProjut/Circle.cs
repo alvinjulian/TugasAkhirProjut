@@ -139,7 +139,7 @@ namespace TugasAkhirProjut
             string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string file = dir + @"\circle.txt";
             string[] scores = File.ReadAllLines(file);
-            var orderedScores = scores.OrderBy(x => int.Parse(x.Split('\t')[0]));
+            var orderedScores = scores.OrderBy(x => double.Parse(x.Split('\t')[0]));
             int counter = 0;
             Console.WriteLine("No.\t" + hit + "\t\tJari-jari");
             foreach (var score in orderedScores)
